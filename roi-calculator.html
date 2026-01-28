@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LeadFlow ROI Calculator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen py-12">
+    <div class="max-w-2xl mx-auto px-6">
+        <h1 class="text-3xl font-bold text-center mb-2">💰 Lead ROI Calculator</h1>
+        <p class="text-center text-gray-600 mb-8">See how much our leads could be worth to your agency</p>
+        
+        <div class="bg-white rounded-lg shadow-lg p-8">
+            <!-- Inputs -->
+            <div class="space-y-6 mb-8">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Number of leads</label>
+                    <input type="range" id="leads" min="100" max="5000" value="500" step="100" class="w-full" oninput="calculate()">
+                    <div class="flex justify-between text-sm text-gray-500">
+                        <span>100</span>
+                        <span id="leadsValue" class="font-bold text-purple-600">500</span>
+                        <span>5,000</span>
+                    </div>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Your email open rate (%)</label>
+                    <input type="range" id="openRate" min="10" max="60" value="30" class="w-full" oninput="calculate()">
+                    <div class="flex justify-between text-sm text-gray-500">
+                        <span>10%</span>
+                        <span id="openRateValue" class="font-bold text-purple-600">30%</span>
+                        <span>60%</span>
+                    </div>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Reply rate (%)</label>
+                    <input type="range" id="replyRate" min="1" max="15" value="5" class="w-full" oninput="calculate()">
+                    <div class="flex justify-between text-sm text-gray-500">
+                        <span>1%</span>
+                        <span id="replyRateValue" class="font-bold text-purple-600">5%</span>
+                        <span>15%</span>
+                    </div>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Close rate from replies (%)</label>
+                    <input type="range" id="closeRate" min="5" max="50" value="20" class="w-full" oninput="calculate()">
+                    <div class="flex justify-between text-sm text-gray-500">
+                        <span>5%</span>
+                        <span id="closeRateValue" class="font-bold text-purple-600">20%</span>
+                        <span>50%</span>
+                    </div>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Average deal value ($)</label>
+                    <input type="range" id="dealValue" min="500" max="10000" value="2000" step="500" class="w-full" oninput="calculate()">
+                    <div class="flex justify-between text-sm text-gray-500">
+                        <span>$500</span>
+                        <span id="dealValueDisplay" class="font-bold text-purple-600">$2,000</span>
+                        <span>$10,000</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Results -->
+            <div class="border-t pt-6">
+                <h2 class="text-lg font-bold mb-4">Your Results</h2>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <div class="text-sm text-gray-500">Emails Opened</div>
+                        <div class="text-2xl font-bold text-blue-600" id="resultsOpened">150</div>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <div class="text-sm text-gray-500">Replies</div>
+                        <div class="text-2xl font-bold text-green-600" id="resultsReplies">25</div>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <div class="text-sm text-gray-500">Deals Closed</div>
+                        <div class="text-2xl font-bold text-purple-600" id="resultsDeals">5</div>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <div class="text-sm text-gray-500">Revenue Generated</div>
+                        <div class="text-2xl font-bold text-yellow-600" id="resultsRevenue">$10,000</div>
+                    </div>
+                </div>
+                
+                <div class="mt-6 p-4 bg-green-50 rounded-lg border border-green-200">
+                    <div class="text-center">
+                        <div class="text-sm text-green-700">Your ROI</div>
+                        <div class="text-4xl font-bold text-green-600" id="resultsROI">10x</div>
+                        <div class="text-sm text-green-700 mt-1">Return on lead investment</div>
+                    </div>
+                </div>
+                
+                <div class="mt-6 text-center">
+                    <a href="mailto:tom@yardpilot.io?subject=I want LeadFlow leads" class="inline-block bg-purple-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-purple-700 transition">
+                        Get Your Leads →
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <p class="text-center text-gray-400 text-sm mt-6">
+            Results are estimates based on industry averages. Your mileage may vary.
+        </p>
+    </div>
+    
+    <script>
+        function calculate() {
+            const leads = parseInt(document.getElementById('leads').value);
+            const openRate = parseInt(document.getElementById('openRate').value) / 100;
+            const replyRate = parseInt(document.getElementById('replyRate').value) / 100;
+            const closeRate = parseInt(document.getElementById('closeRate').value) / 100;
+            const dealValue = parseInt(document.getElementById('dealValue').value);
+            
+            // Update display values
+            document.getElementById('leadsValue').textContent = leads.toLocaleString();
+            document.getElementById('openRateValue').textContent = (openRate * 100) + '%';
+            document.getElementById('replyRateValue').textContent = (replyRate * 100) + '%';
+            document.getElementById('closeRateValue').textContent = (closeRate * 100) + '%';
+            document.getElementById('dealValueDisplay').textContent = '$' + dealValue.toLocaleString();
+            
+            // Calculate results
+            const opened = Math.round(leads * openRate);
+            const replies = Math.round(leads * replyRate);
+            const deals = Math.round(replies * closeRate);
+            const revenue = deals * dealValue;
+            
+            // Lead cost (rough estimate)
+            const leadCost = leads <= 500 ? 997 : leads <= 1000 ? 1497 : 4997;
+            const roi = revenue / leadCost;
+            
+            // Update results
+            document.getElementById('resultsOpened').textContent = opened.toLocaleString();
+            document.getElementById('resultsReplies').textContent = replies.toLocaleString();
+            document.getElementById('resultsDeals').textContent = deals.toLocaleString();
+            document.getElementById('resultsRevenue').textContent = '$' + revenue.toLocaleString();
+            document.getElementById('resultsROI').textContent = roi.toFixed(1) + 'x';
+        }
+        
+        // Initial calculation
+        calculate();
+    </script>
+</body>
+</html>

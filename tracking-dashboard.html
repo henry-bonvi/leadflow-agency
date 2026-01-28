@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LeadFlow - Campaign Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-8">
+    <div class="max-w-6xl mx-auto">
+        <h1 class="text-3xl font-bold mb-8">📊 LeadFlow Campaign Dashboard</h1>
+        
+        <!-- Stats Cards -->
+        <div class="grid grid-cols-4 gap-6 mb-8">
+            <div class="bg-white p-6 rounded-lg shadow">
+                <div class="text-gray-500 text-sm">Total Sent</div>
+                <div class="text-3xl font-bold text-blue-600" id="totalSent">0</div>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow">
+                <div class="text-gray-500 text-sm">Opened</div>
+                <div class="text-3xl font-bold text-green-600" id="totalOpened">0</div>
+                <div class="text-sm text-gray-400" id="openRate">0%</div>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow">
+                <div class="text-gray-500 text-sm">Replied</div>
+                <div class="text-3xl font-bold text-purple-600" id="totalReplied">0</div>
+                <div class="text-sm text-gray-400" id="replyRate">0%</div>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow">
+                <div class="text-gray-500 text-sm">Deals Closed</div>
+                <div class="text-3xl font-bold text-yellow-600" id="totalDeals">0</div>
+                <div class="text-sm text-gray-400" id="dealValue">$0</div>
+            </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="bg-white rounded-lg shadow p-6 mb-8">
+            <h2 class="text-xl font-bold mb-4">Recent Activity</h2>
+            <div id="activityLog" class="space-y-2 text-sm">
+                <div class="p-2 bg-blue-50 rounded">📧 Email sent to info@example.com</div>
+                <div class="p-2 bg-green-50 rounded">👀 Email opened by hello@agency.com</div>
+                <div class="p-2 bg-purple-50 rounded">💬 Reply from mark@tradie.com</div>
+            </div>
+        </div>
+
+        <!-- Campaign List -->
+        <div class="bg-white rounded-lg shadow p-6">
+            <h2 class="text-xl font-bold mb-4">Agencies Contacted</h2>
+            <table class="w-full text-sm">
+                <thead class="text-left text-gray-500 border-b">
+                    <tr>
+                        <th class="pb-3">Agency</th>
+                        <th class="pb-3">Email</th>
+                        <th class="pb-3">Status</th>
+                        <th class="pb-3">Last Action</th>
+                    </tr>
+                </thead>
+                <tbody id="agencyTable">
+                    <tr class="border-b">
+                        <td class="py-3">We Build Tradies</td>
+                        <td>info@webuildtradies.com.au</td>
+                        <td><span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">Sent</span></td>
+                        <td class="text-gray-400">Just now</td>
+                    </tr>
+                    <tr class="border-b">
+                        <td class="py-3">Tradie Pulse</td>
+                        <td>support@tradiepulse.com.au</td>
+                        <td><span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">Opened</span></td>
+                        <td class="text-gray-400">2 hours ago</td>
+                    </tr>
+                    <tr class="border-b">
+                        <td class="py-3">TRADE BOOM</td>
+                        <td>liam@tradeboom.com.au</td>
+                        <td><span class="bg-purple-100 text-purple-800 px-2 py-1 rounded text-xs">Replied</span></td>
+                        <td class="text-gray-400">Yesterday</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <p class="text-center text-gray-400 mt-8 text-sm">
+            This is a static mockup. Real tracking would integrate with SendGrid webhooks.
+        </p>
+    </div>
+</body>
+</html>
